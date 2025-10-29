@@ -280,6 +280,129 @@ footer {
     }
 }
 
+/* Teams Page Styles */
+.page-header {
+    background: linear-gradient(135deg, #1a1a2e 0%, #0066cc 100%);
+    color: #fff;
+    text-align: center;
+    padding: 3rem 2rem;
+}
+
+.page-header h2 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    color: #fff;
+}
+
+.page-subtitle {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+.team-info {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 3rem;
+}
+
+.team-info h3 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: #1a1a2e;
+    text-align: center;
+}
+
+.team-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.team-detail-item {
+    padding: 1rem;
+    background: #f5f5f5;
+    border-radius: 6px;
+    border-left: 4px solid #0066cc;
+}
+
+.team-detail-item strong {
+    color: #1a1a2e;
+    margin-right: 0.5rem;
+}
+
+.roster-section {
+    margin-top: 3rem;
+}
+
+.roster-section > h3 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: #1a1a2e;
+    text-align: center;
+}
+
+.position-group {
+    margin-bottom: 3rem;
+}
+
+.position-title {
+    font-size: 1.5rem;
+    color: #0066cc;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #0066cc;
+}
+
+.roster-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.player-card {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.player-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.player-number {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #0066cc;
+    background: #f5f5f5;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin-right: 1rem;
+    flex-shrink: 0;
+}
+
+.player-info h5 {
+    font-size: 1.2rem;
+    color: #1a1a2e;
+    margin-bottom: 0.3rem;
+}
+
+.player-position {
+    color: #666;
+    font-size: 0.9rem;
+    margin: 0;
+}
+
 @media (max-width: 480px) {
     header {
         padding: 1rem;
@@ -304,5 +427,27 @@ footer {
 
     .content-section {
         padding: 2rem 1rem;
+    }
+
+    .page-header {
+        padding: 2rem 1rem;
+    }
+
+    .page-header h2 {
+        font-size: 1.8rem;
+    }
+
+    .team-info {
+        padding: 1.5rem;
+    }
+
+    .roster-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .player-number {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
     }
 }
