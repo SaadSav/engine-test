@@ -3,26 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Hockey Website">
-    <title>Hockey Website</title>
+    <meta name="description" content="Hockey Hub - Your destination for all things hockey">
+    <title>Hockey Hub - Home</title>
     <link rel="stylesheet" href="../assets/css/styles.css">
 </head>
 <body>
     <header>
-        <nav>
-            <h1>Hockey Hub</h1>
+        <nav class="navbar">
+            <div class="nav-brand">
+                <h1>Hockey Hub</h1>
+            </div>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#teams" class="nav-link">Teams</a></li>
+                <li><a href="#schedule" class="nav-link">Schedule</a></li>
+                <li><a href="#standings" class="nav-link">Standings</a></li>
+                <li><a href="#news" class="nav-link">News</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+            </ul>
         </nav>
     </header>
 
     <main>
-        <section class="hero">
-            <h2>Welcome to Hockey Hub</h2>
-            <p>Your destination for all things hockey</p>
+        <section class="hero" id="home">
+            <div class="hero-content">
+                <h2>Welcome to Hockey Hub</h2>
+                <p class="hero-subtitle">Your ultimate destination for all things hockey</p>
+                <div class="hero-image-placeholder">
+                    <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="400" height="300" fill="#0066cc"/>
+                        <circle cx="200" cy="150" r="80" fill="#fff" opacity="0.2"/>
+                        <line x1="100" y1="150" x2="300" y2="150" stroke="#fff" stroke-width="4"/>
+                        <text x="200" y="160" text-anchor="middle" fill="#fff" font-size="24" font-weight="bold">HOCKEY</text>
+                    </svg>
+                </div>
+                <button class="cta-button">Explore Now</button>
+            </div>
+        </section>
+
+        <section class="content-section" id="featured">
+            <div class="container">
+                <h3>Featured Content</h3>
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>Latest News</h4>
+                        <p>Stay updated with the latest hockey news and highlights</p>
+                    </div>
+                    <div class="card">
+                        <h4>Game Schedules</h4>
+                        <p>Never miss a game with our comprehensive schedule</p>
+                    </div>
+                    <div class="card">
+                        <h4>Team Standings</h4>
+                        <p>Track your favorite team's performance throughout the season</p>
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
 
     <footer>
-        <p>&copy; 2025 Hockey Hub. All rights reserved.</p>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Hockey Hub</h4>
+                <p>Your premier source for hockey information</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#teams">Teams</a></li>
+                    <li><a href="#schedule">Schedule</a></li>
+                    <li><a href="#standings">Standings</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Follow Us</h4>
+                <p>Connect with us on social media</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Hockey Hub. All rights reserved.</p>
+        </div>
     </footer>
 
     <script src="../assets/js/main.js"></script>
