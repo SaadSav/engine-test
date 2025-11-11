@@ -1,0 +1,29 @@
+# Override file for local development
+# This file is automatically loaded by docker-compose and extends docker-compose.yml
+# Add development-specific configurations here
+
+version: '3.9'
+
+services:
+  app:
+    build:
+      target: builder  # Use builder stage for development with dev dependencies
+    command: npm run dev  # Override with development command (with hot-reload)
+    environment:
+      - NODE_ENV=development
+      - DEBUG=*
+    volumes:
+      # Additional development volumes
+      - ./:/app
+      - /app/node_modules
+    stdin_open: true
+    tty: true
+
+  postgres:
+    # Expose additional ports for local debugging
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust  # Only for local dev - remove in production!
+
+  redis:
+    # No password required for local development
+    command: redis-server --appendonly yes --appendfsync everysec
