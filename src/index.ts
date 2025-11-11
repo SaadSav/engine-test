@@ -5,7 +5,12 @@ import {
   requestLoggingMiddleware,
   errorHandlerMiddleware,
   notFoundHandler,
-  asyncHandler
+  asyncHandler,
+  sentryRequestHandler,
+  sentryTracingHandler,
+  sentryErrorHandler,
+  autoEnrichSentryContext,
+  performanceMonitoring
 } from './middleware';
 import { defaultLogger } from './utils';
 import {
@@ -14,9 +19,14 @@ import {
   BadRequestError,
   InternalServerError
 } from './errors';
+import { initializeSentry } from './config';
+import healthRoutes from './routes/health.routes';
 
 // Load environment variables
 dotenv.config();
+
+// Initialize Sentry before any other middleware
+initializeSentry();
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -25,8 +35,23 @@ const port = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Sentry request handlers - must be first
+app.use(sentryRequestHandler());
+app.use(sentryTracingHandler());
+
 // Attach correlation ID to all requests
 app.use(correlationIdMiddleware());
+
+// Enrich Sentry context with request data
+app.use(autoEnrichSentryContext());
+
+// Performance monitoring
+app.use(performanceMonitoring({
+  slowRequestThreshold: 1000,
+  logAllRequests: false,
+  includeMemoryUsage: true,
+  reportSlowRequests: true
+}));
 
 // Log all incoming requests
 app.use(requestLoggingMiddleware());
@@ -43,9 +68,8 @@ app.get('/', (req: Request, res: Response) => {
   });
 });
 
-app.get('/health', (req: Request, res: Response) => {
-  res.json({ status: 'healthy', timestamp: new Date().toISOString() });
-});
+// Health check routes
+app.use(healthRoutes);
 
 // Example route with synchronous error
 app.get('/error', (req: Request, res: Response) => {
@@ -99,6 +123,9 @@ app.get('/users/:id', asyncHandler(async (req: Request, res: Response) => {
 
 // 404 handler - must be after all routes
 app.use(notFoundHandler);
+
+// Sentry error handler - must be before other error handlers
+app.use(sentryErrorHandler());
 
 // Global error handler - must be last
 app.use(errorHandlerMiddleware);

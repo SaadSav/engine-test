@@ -20,3 +20,21 @@ export {
   AsyncHandler,
   AsyncRequestHandler
 } from './asyncHandler.middleware';
+
+export {
+  sentryRequestHandler,
+  sentryTracingHandler,
+  sentryErrorHandler,
+  enrichSentryContext,
+  autoEnrichSentryContext,
+  captureException,
+  captureMessage,
+  addBreadcrumb
+} from './sentry.middleware';
+
+export {
+  performanceMonitoring,
+  addPerformanceHeaders,
+  getPerformanceMetrics,
+  PerformanceMonitoringOptions
+} from './performance.middleware';
