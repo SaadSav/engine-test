@@ -2,9 +2,18 @@ import express, { Request, Response } from 'express';
 import dotenv from 'dotenv';
 import {
   correlationIdMiddleware,
-  requestLoggingMiddleware
+  requestLoggingMiddleware,
+  errorHandlerMiddleware,
+  notFoundHandler,
+  asyncHandler
 } from './middleware';
 import { defaultLogger } from './utils';
+import {
+  ValidationError,
+  NotFoundError,
+  BadRequestError,
+  InternalServerError
+} from './errors';
 
 // Load environment variables
 dotenv.config();
@@ -38,19 +47,61 @@ app.get('/health', (req: Request, res: Response) => {
   res.json({ status: 'healthy', timestamp: new Date().toISOString() });
 });
 
-// Example route with error
+// Example route with synchronous error
 app.get('/error', (req: Request, res: Response) => {
-  const logger = req.logger || defaultLogger;
-  logger.error('Intentional error for testing', {
-    route: '/error',
-    timestamp: new Date().toISOString()
-  });
-
-  res.status(500).json({
-    error: 'This is a test error',
-    correlationId: req.correlationId
-  });
+  throw new InternalServerError('This is a test synchronous error');
 });
+
+// Example route with async error
+app.get('/async-error', asyncHandler(async (req: Request, res: Response) => {
+  await new Promise(resolve => setTimeout(resolve, 100));
+  throw new ValidationError('This is a test async validation error', {
+    field: 'example',
+    value: 'invalid'
+  });
+}));
+
+// Example route with validation error
+app.post('/validate', asyncHandler(async (req: Request, res: Response) => {
+  const { email } = req.body;
+
+  if (!email) {
+    throw new ValidationError('Email is required', {
+      field: 'email',
+      provided: false
+    });
+  }
+
+  if (!email.includes('@')) {
+    throw new ValidationError('Invalid email format', {
+      field: 'email',
+      value: email
+    });
+  }
+
+  res.json({ success: true, message: 'Validation passed' });
+}));
+
+// Example route with not found error
+app.get('/users/:id', asyncHandler(async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  // Simulate database lookup
+  await new Promise(resolve => setTimeout(resolve, 50));
+
+  // Simulate user not found
+  if (id === '999') {
+    throw new NotFoundError(`User with ID ${id} not found`, { userId: id });
+  }
+
+  res.json({ id, name: 'Test User' });
+}));
+
+// 404 handler - must be after all routes
+app.use(notFoundHandler);
+
+// Global error handler - must be last
+app.use(errorHandlerMiddleware);
 
 // Start server
 app.listen(port, () => {

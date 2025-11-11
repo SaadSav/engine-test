@@ -18,3 +18,10 @@ export {
   isValidRequestId,
   extractTimestamp
 } from './requestId';
+
+// Error formatting exports
+export {
+  formatErrorResponse,
+  sanitizeErrorMessage,
+  ErrorResponse
+} from './errorFormatter';
