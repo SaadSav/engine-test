@@ -1,0 +1,53 @@
+# Production configuration for docker-compose
+# Usage: docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+
+version: '3.9'
+
+services:
+  app:
+    build:
+      target: runtime
+    environment:
+      - NODE_ENV=production
+    volumes: []  # Remove volume mounts for production (no hot-reload)
+    deploy:
+      replicas: 2
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+    restart: always
+
+  postgres:
+    environment:
+      # Remove POSTGRES_HOST_AUTH_METHOD in production
+      - POSTGRES_HOST_AUTH_METHOD=
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 2G
+        reservations:
+          cpus: '1.0'
+          memory: 1G
+    restart: always
+    command: postgres -c shared_buffers=256MB -c max_connections=200
+
+  redis:
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+        reservations:
+          cpus: '0.25'
+          memory: 256M
+    restart: always
