@@ -1,0 +1,120 @@
+# Git files
+.git
+.gitignore
+.gitattributes
+
+# CI/CD
+.github
+.gitlab-ci.yml
+.travis.yml
+.circleci
+
+# Documentation
+*.md
+!README.md
+docs/
+LICENSE
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+.project
+.classpath
+.settings/
+*.sublime-*
+
+# Dependency directories
+node_modules/
+bower_components/
+jspm_packages/
+vendor/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+ENV/
+env/
+pip-log.txt
+pip-delete-this-directory.txt
+.pytest_cache/
+*.egg-info/
+dist/
+build/
+
+# Ruby
+*.gem
+*.rbc
+.bundle/
+vendor/bundle/
+
+# Java
+target/
+*.class
+*.jar
+*.war
+*.ear
+
+# Build artifacts
+build/
+dist/
+out/
+*.o
+*.a
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+*.env
+
+# Test coverage
+coverage/
+.nyc_output/
+*.lcov
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.bak
+*.cache
+
+# Docker files (avoid recursion)
+Dockerfile*
+docker-compose*.yml
+.dockerignore
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# Cloud provider configs
+.terraform/
+*.tfstate
+*.tfstate.backup
+
+# Package manager lock files (uncomment if you want to exclude them)
+# package-lock.json
+# yarn.lock
+# Gemfile.lock
+# Pipfile.lock
